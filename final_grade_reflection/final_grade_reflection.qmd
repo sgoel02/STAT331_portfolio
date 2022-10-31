@@ -1,11 +1,22 @@
 ---
 title: "Final Grade Reflection"
-author: "Your Name Goes Here"
+author: "Sara Goel"
 format: pdf
 editor: visual
 ---
 
-In this document, you make a data-based argument for the grade you've earned in this course. Your argument should include evidence from the supporting artifacts you've provided. 
+In this document, you make a data-based argument for the grade you've earned in this course. Your argument should include evidence from the supporting artifacts you've provided.
 
-The output document should be a PDF or a Word Document, as it should be a **maximum** of 2-pages. 
----
+## The output document should be a PDF or a Word Document, as it should be a **maximum** of 2-pages.
+
+Learning Targets:
+
+I believe I have made good progress in my proficiency of the learning targets. I can import data from a variety of formats, as I demonstrated in the week 2 preview activity (data_import_practice.qmd). I can select different columns, filter through the rows and mutate or create new variables in a dataset. I demonstrate this in Lab 3, questions 6 and 8. I have used semi, anti, left and right joins to combine dataframes, as demonstrated in Lab 4, questions 5 and 6. My code is very tidy and well documented, and I always make sure to include question headers, chunk titles and white space. This can be seen in any lab assignment I have submitted. I have learned to create visualizations for several data types, and modified these visualizations to make sure they are clear and easy to understand. One example where I have demonstrated proficiency in this target is in Lab 5, question 3. I have learned how to write efficient and concise code. I have also demonstrated proficiency in using modern tools to do my data analysis. This can be seen in Challenge 4 in the chunk titled create-houses.
+
+Continued Learning:
+
+I am still working on creating professional looking analysis and am continuing to make sure my code only outputs what the readers need to see, rather than just my one debugging process. In this process I have learned to find summaries of different variables and groups, as summarizing all of the variables or groups in the output is not a final solution to the problem, and it is important that the output contains only the information that we are interested in knowing. I have showed revision and continued learning in these topics in my Lab 4, question 4 in which I produced output that gives the one correct maximum value as opposed to before, when I was printing the summaries of all of the variables in descending order to find the maximum.
+
+Peer Review / Teamwork:
+
+I have been working very collaboratively with my team all quarter. I often contribute to group discussions about the best way to solve a problem, and together we evaluate which solutions are the most efficient. I give helpful feedback in peer reviews for lab, making sure to include both positive and constructive comments. This can be seen in the screenshot of my comment for the lab 2 assigned peer review.

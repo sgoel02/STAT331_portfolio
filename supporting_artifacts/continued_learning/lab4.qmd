@@ -1,0 +1,139 @@
+---
+title: "Lab 4: Avocado Prices"
+author: "Sara Goel"
+execute:
+  error: true
+  echo: true
+  include: true
+editor: visual
+---
+
+```{r load-package}
+#| message: false
+library(tidyverse)
+```
+
+```{r read-csv}
+#| message: false
+#| warning: false
+
+avocados <- read_csv(here::here("supporting_artifacts", "continued_learning", "avocado.csv"))
+```
+
+**Question 1**
+
+This dataset represents the retail sales of avocados from 2015 to 2018 in the United States. Variables include the average price of an avocado, the type of avocado (conventional or organic), the total number of avocados sold as well as by size, the year, and the region.
+
+**Question 2**
+
+```{r data-cleaning}
+avocados <- avocados |> 
+  rename("Extra Large" = `4770`,
+         "Large" = `4225`,
+         "Small" = `4046`)
+```
+
+**Question 3**
+
+```{r question3}
+region <- data.frame(region = c("Midsouth", "Northeast", "NorthernNewEngland", "Plains", "South", "SouthCentral", "Southeast", "TotalUS", "West", "WestTexNewMexico", "GreatLakes"))
+
+avocados |> 
+  semi_join(region, by = "region") |> 
+  separate(col = Date, into = c("Year", "Month", "Day"), sep = "-") |> 
+  filter(Year == 2017,
+         type == "organic") |> 
+  group_by(region) |> 
+  summarize(small = sum(Small)) |> 
+  arrange(desc(small))
+```
+
+The West sold the most organic, small Hass avocados in 2017.
+
+**Question 4**
+
+```{r question4}
+avocados |> 
+  separate(col = Date, into = c("Year", "Month", "Day"), sep = "-") |> 
+  group_by(Month) |> 
+  summarize(total_volume = mean(`Total Volume`)) |> 
+  arrange(desc(total_volume)) |> 
+  slice_max(total_volume)
+```
+
+The highest volume of avocado sales are in February.
+
+**Question 5**
+
+```{r question5}
+states <- data.frame(region = "California", "SouthCarolina")
+avocado_metro <- avocados |> 
+  anti_join(region, by = "region") |> 
+  anti_join(states, by = "region")
+
+top_five <- avocado_metro |> 
+  group_by(region) |> 
+  summarize("Mean Total Volume" = mean(`Total Volume`)) |> 
+  arrange(desc(`Mean Total Volume`)) |> 
+  slice_max(`Mean Total Volume`, n = 5)
+```
+
+```{r question5-2}
+top_five |> 
+  left_join(avocado_metro, by = "region") |> 
+  ggplot(mapping = aes(x = `Total Volume`, y = region)) +
+  geom_boxplot() +
+  ylab("Region")
+```
+
+**Question 6**
+
+```{r question6}
+cali <- data.frame(region = c("LosAngeles", "Sacramento", "SanDiego", "SanFrancisco"))
+
+cali_new <- avocados |> 
+  semi_join(cali, by = "region")
+
+type_diff <- cali_new |> 
+  group_by(region, type) |> 
+  summarize(mean_price = mean(AveragePrice), .groups = "drop") |> 
+  pivot_wider(names_from = region, values_from = mean_price)
+
+type_grouped <- type_diff |> 
+  summarize(across(.cols = "LosAngeles":"SanFrancisco", diff))
+
+type_grouped
+```
+
+The price of organic versus conventional avocados is the most avocados is the most different in San Francisco.
+
+```{r question6-plot}
+cali_new |> 
+  ggplot(mapping = aes(x = region, y = AveragePrice, color = type)) +
+  geom_boxplot() +
+  xlab("Region") +
+  ylab("Difference in Price of Conventional vs. Organic Avocados")
+```
+
+**Question 7**
+
+```{r}
+avo_final <- cali_new |> 
+  pivot_longer("Small":"Extra Large", names_to = "Avocado Size", values_to = "sales") |> 
+  group_by(region, `Avocado Size`, type) |> 
+  mutate(proportion = sales/`Total Volume`) |> 
+  distinct(region, .keep_all = TRUE)
+
+avo_final |> 
+  ggplot(mapping = aes(group_by(region),
+                       x = region,
+                       y = proportion,
+                       fill = `Avocado Size`)) + 
+  geom_col(position = position_fill(reverse = TRUE)) + 
+  facet_wrap(~type) +
+  scale_x_discrete(guide = guide_axis(n.dodge = 2)) +
+  xlab("Region of CA") +
+  ylab("Proportion of Mean Avocados Sold")
+
+#website used to figure out how to stagger labels: https://datavizpyr.com/how-to-dodge-overlapping-text-on-x-axis-labels-in-ggplot2/
+```

@@ -1,0 +1,167 @@
+---
+title: "Lab 3: Hip-Hop Lyrics"
+author: "Sara Goel"
+execute:
+  error: true
+  echo: true
+  include: true
+editor: visual
+---
+
+```{r load-in-data}
+#| warning: false
+#| message: false
+library(tidyverse)
+```
+
+```{r read-file}
+hiphop <- read.csv(here::here("supporting_artifacts", "learning targets", "hiphop.csv"))
+```
+
+**Question 1**
+
+This dataset contains the results of an experiment studying how the familiarity with AAE, African-American English can be influenced by someone's musical taste. The study uses 168 undergraduate students from the University of Minnesota that were enrolled in linguistics, music or sociology classes. The study also examines the sex, ethnicity, hometown, and age of the participants. The participants freely defined a set of 64 words and the researchers assigned a number to their definition on a 5-point scale based on how familiar they were with the word (1 = not familiar, 5 = very familiar).
+
+**Question 2**
+
+Each row represents one subject's trial with one of the words.
+
+**Question 3**
+
+Missing values were replaced with mean values. The benefits of this are that we do not lose data points, but the cons are that the data become more centered towards the mean, because we are adding data points that are exactly the existing mean of the points we do have.
+
+**Question 4**
+
+```{r question4-clean-data}
+
+hiphop$numOverallArtists[is.na(hiphop$numOverallArtists)] <- mean(hiphop$numOverallArtists, na.rm = TRUE)
+hiphop$numPreferredArtists[is.na(hiphop$numPreferredArtists)] <- mean(hiphop$numPreferredArtists, na.rm = TRUE)
+
+hiphop_clean <- hiphop |> 
+  mutate(sex = as.factor(sex),
+        ethnic = as.factor(ethnic))
+```
+
+**Question 5**
+
+```{r question5-count-words}
+hiphop_clean |> 
+  distinct(word, .keep_all = TRUE) |> 
+  summarize(word)
+```
+
+64 unique words were studied in this dataset.
+
+**Question 6**
+
+```{r question6-add-ethnic}
+hiphop_clean <- hiphop_clean |> 
+  mutate(ethnic = if_else(ethnic =="white", "white", "non-white"),
+         ethnic = as.factor(ethnic))
+```
+
+**Question 7**
+
+```{r question7-demographics}
+hiphop_clean |> 
+  distinct(subj, .keep_all = TRUE) |> 
+  count(sex, ethnic)
+
+mean(hiphop_clean$age)
+```
+
+Of the participants of the study, there is a majority of females, with 117 females and 51 males. There is also a majority of white people. The mean age of people in this study is 20 years old.
+
+**Question 8**
+
+```{r question8-bar-plot}
+hiphop_clean |> 
+  distinct(subj, .keep_all = TRUE) |>
+  ggplot(mapping = aes(x = sex, fill = ethnic)) +
+  geom_bar() +
+  ylab("Number of Subjects") + 
+  xlab("Sex of Subject") +
+  labs(fill = "Ethnicity")
+```
+
+```{r question8-box-plot}
+hiphop_clean |> 
+  distinct(subj, .keep_all = TRUE) |>
+  ggplot(mapping = aes(x = age)) +
+  geom_boxplot() +
+  xlab("Age of Subject") +
+  ggtitle("Distribution of Ages of Subjects in Study")
+```
+
+```{r under20-min}
+hiphop_clean |> 
+  filter(age<20) |>
+  select(word, familiarity) |> 
+  group_by(word) |> 
+  summarize(familiarity = mean(familiarity)) |> 
+  slice_min(familiarity)
+```
+
+```{r under20-max}
+hiphop_clean |> 
+  filter(age<20) |>
+  select(word, familiarity) |> 
+  group_by(word) |> 
+  summarize(familiarity = mean(familiarity)) |> 
+  slice_max(familiarity)
+```
+
+```{r nonwhite-women-min}
+hiphop_clean |> 
+  filter(sex == "Female",
+         ethnic == "non-white") |>
+  select(word, familiarity) |> 
+  group_by(word) |> 
+  summarize(familiarity = mean(familiarity)) |> 
+  slice_min(familiarity)
+```
+
+```{r nonwhite-women-max}
+hiphop_clean |> 
+  filter(sex == "Female",
+         ethnic == "non-white") |>
+  select(word, familiarity) |> 
+  group_by(word) |> 
+  summarize(familiarity = mean(familiarity)) |> 
+  slice_max(familiarity)
+```
+
+```{r white-male-max}
+hiphop_clean |> 
+  filter(sex == "Male",
+         ethnic == "white",
+         age > 30) |>
+  select(word, familiarity) |> 
+  group_by(word) |> 
+  summarize(familiarity = mean(familiarity)) |> 
+  slice_max(familiarity)
+```
+
+```{r white-male-min}
+hiphop_clean |> 
+  filter(sex == "Male",
+         ethnic == "white",
+         age > 30) |>
+  select(word, familiarity) |> 
+  group_by(word) |> 
+  summarize(familiarity = mean(familiarity)) |> 
+  slice_min(familiarity)
+```
+
+```{r bieber}
+hiphop_clean |> 
+  filter(age>=17,
+         age<=23,
+         city <= 60000,
+         city >= 10000,
+         ethnic == "white",
+         sex == "Male",
+         bieber >= max(bieber) - 1)
+```
+
+Subject 17 is likely to be Justin Bieber. Although, this subject only got a "bieber" score of 5, indicating that he only knows 4 of his own songs, which would be unlikely.
