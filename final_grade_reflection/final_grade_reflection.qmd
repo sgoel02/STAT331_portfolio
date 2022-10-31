@@ -20,3 +20,7 @@ I am still working on creating professional looking analysis and am continuing t
 Peer Review / Teamwork:
 
 I have been working very collaboratively with my team all quarter. I often contribute to group discussions about the best way to solve a problem, and together we evaluate which solutions are the most efficient. I give helpful feedback in peer reviews for lab, making sure to include both positive and constructive comments. This can be seen in the screenshot of my comment for the lab 2 assigned peer review.
+
+Final Grade:
+
+I believe my final grade should be an A-. I am working hard to make sure I understand the concepts we are learning and applying them to every assignment, but I believe I could still be more mindful of the code I'm writing to find the best possible solution, instead of just one that works.
