@@ -1,7 +1,7 @@
 ---
 title: "Final Grade Reflection"
 author: "Sara Goel"
-format: pdf
+format: html
 editor: visual
 ---
 
