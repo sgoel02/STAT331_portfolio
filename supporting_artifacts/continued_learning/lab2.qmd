@@ -72,7 +72,7 @@ surveys <- read_csv(here::here("supporting_artifacts", "continued_learning", "su
 
 **2. What are the dimensions of these data?**
 
-Revision Requested: The output of `summary()` doesn\'t tell you how many rows there are in a simple way, you need to read the Legth entry under `species_id`. Find a simpler way to get this information!
+Revision Requested: The output of `summary()` doesn't tell you how many rows there are in a simple way, you need to read the Legth entry under `species_id`. Find a simpler way to get this information!
 
 Reflection by me: I was using summary() to find the dimensions of my dataset, by counting all the variables and looking at the length of one variable to find the number of rows. I didn't realize that there was a more efficient/clear way to find the dimensions of my dataset, which now makes sense in hindsight. I searched online to find a way that R could calculate the dimensions of my dataset for me and found the function dim() which returns the rows and columns of the dataset, exactly what I needed.
 
