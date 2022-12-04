@@ -1,0 +1,68 @@
+---
+title: "Challenge 7"
+author: "Sara Goel"
+execute:
+  error: true
+  echo: true
+  include: true
+editor: visual
+---
+
+```{r load-packages}
+#| message: false
+
+library(tidyverse)
+library(lubridate)
+```
+
+```{r load-data}
+fish <- read_csv(here::here("supporting_artifacts", "learning targets", "BlackfootFish.csv"), show_col_types = FALSE)
+```
+
+**Part 1: Replacing Impossible Measurements**
+
+```{r make-function}
+fix_vals <- function(vec, min, max){
+  if_else(vec %in% c(min:max), vec, NA_real_)
+}
+```
+
+```{r fix-len-wt}
+fish <- fish |> 
+  mutate(length = fix_vals(length, 102, 1150),
+         weight = fix_vals(weight, 226, 22685))
+```
+
+**Part 2: Calculating the Condition Index**
+
+```{r make-index-function}
+condition <- function(df, len, wt){
+    df <- df |> 
+      mutate(condition_index = 100 * {{ wt }} / {{ len }}^3)
+  }
+```
+
+```{r calc-index}
+fish <- na.omit(fish)
+fish <- condition(fish, length, weight)
+```
+
+**Part 3: Making the Visualization**
+
+```{r year-to-categorical}
+fish <- fish |> 
+  mutate(year = as.factor(year))
+```
+
+```{r make-plot-1}
+#| warning: false
+
+fish |> 
+  ggplot(mapping = aes(y = year, x = condition_index)) +
+  geom_jitter(alpha = 0.2, color = "red") +
+  geom_boxplot(outlier.shape = NA) +
+  facet_wrap(~trip) +
+  xlim(0.0005,0.0015) +
+  ylab("Year") +
+  xlab("Condition Index of Trout") 
+```

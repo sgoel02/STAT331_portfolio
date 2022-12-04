@@ -3,3 +3,9 @@ title: "My Growth as a Data Scientist"
 format: html
 editor: visual
 ---
+
+I learned that data visualizations have a lot more to them than just displaying data on the correct axes. The type of visualization matters a lot, as well as how the axes are labeled and positioned. The order of the legend matters, as well as the layering and scale of the axes. In many of my visualizations I made, I was wondering how I could make a better graph than this, and during class I would see that the professor always made more creative graphs somehow. I learned that the facets, colors, and title can contribute so much to the creativity of the visualization and it's important to try new things to make your graphs visually stimulating. I displayed this in Challenge 7, Part 3.
+
+Another part of growing as a data scientist was trying to determine to best way to solve each problem I was given, and learning how to format my datasets to be able to solve each problem. Often, as I completed a lab I would have to work out a problem through a very complicated solution, and then as I looked over all my steps I found a way to condense them into a smaller set of steps. I still, however, sometimes struggle with figuring out the most concise solution to my problems. To me, data science is an exercise in problem-solving, and coding is a fun tool to practice that. One of the pieces of feedback I got in Lab 9 for Question 3 was "Clever use of pivots to get the proportions! This process has quite a few steps, so I'd recommend you considering how you might be able to shorten it!" I tried that problem a couple different times but couldn't figure out a way to shorten the number of steps. These are things I'm still learning.
+
+The last way I've grown as a data scientist this quarter has been through learning to make my output more professional.

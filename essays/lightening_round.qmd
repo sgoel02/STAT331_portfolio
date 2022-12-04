@@ -3,3 +3,11 @@ title: "Lightening Round Essays"
 format: html
 editor: visual
 ---
+
+Lightning Round Questions:
+
+1.  If Hannah Pawig doesn't earn an A, then no one should because she can come up with very concise solutions and demonstrates clear understanding of the content we learn in class. She also is very helpful and kind, and is good at using resources to find solutions to difficult problems that don't have clear cut answers.
+2.  The most difficult part of this class for me is not being able to use for loops for iteration. In every coding class I've taken I've used for loops, so it was really hard for me to wrap my brain around how R packages can automatically iterate through a list or data frame and figure out how to solve problems using this feature as opposed to just looping through every item in a list or vector.
+3.  The easiest part of this class for me was using the linear regression and simulation tools to create models. The functions for this were just super easy to use and understand.
+4.  The part of this class that interested me the most were the use of the dplyr functions such as filter, join and mutate. It was cool to see how I could manipulate a dataset to clean it up or do the analysis I needed to do, and it was definitely a useful tool to learn for a future data science job.
+5.  Make sure to understand what the arguments of each function is and why you're using them! Don't just follow templates for code, really try to understand how every line works because it'll be so much easier to debug or avoid mistakes.

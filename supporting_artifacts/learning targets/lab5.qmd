@@ -107,7 +107,7 @@ ggplot(data = surveys_time,
 
 **Captures over the Week**
 
-**Question 1**
+**Question 5**
 
 ```{r graph-days}
 surveys |> 
@@ -116,7 +116,7 @@ surveys |>
   theme(axis.title.y = element_text(angle = 0))
 ```
 
-**Question 2**
+**Question 6**
 
 ```{r relevel-day}
 surveys <- surveys |> 
@@ -132,7 +132,7 @@ surveys |>
   theme(axis.title.y = element_text(angle = 0))
 ```
 
-**Question 3**
+**Question 7**
 
 ```{r recode}
 surveys <- surveys |> 

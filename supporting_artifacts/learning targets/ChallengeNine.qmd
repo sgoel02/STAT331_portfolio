@@ -1,0 +1,150 @@
+---
+title: "Challenge 9: Baby Names"
+author: "Sara Goel"
+execute:
+  error: true
+  echo: true
+  include: true
+editor: visual
+---
+
+```{r load-package}
+#| include: false
+
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(DT)
+library(forcats)
+```
+
+```{r read-csv}
+#| message: false
+
+names <- read_csv(here::here("supporting_artifacts", "learning targets", "StateNames_A.csv"))
+```
+
+```{r clean-data}
+names <- names |> 
+  rename("Sex" = "Gender")
+
+datatable(head(names))
+```
+
+**Summarizing and Visualizing the Number of Allisons**
+
+Question 1
+
+```{r sum-table}
+names_new <- names |> 
+  filter(Name == "Allison") |> 
+  group_by(State, Sex) |> 
+  summarize("counts" = sum(Count), .groups = "keep") |> 
+  pivot_wider(names_from = Sex, values_from = counts)
+
+names_new[is.na(names_new)] = 0
+
+kable(names_new, col.names = c("State", "Female", "Male"))
+```
+
+Questions 2&3
+
+Challenge: I made the Year variable a factor so that each year would be displayed on the x-axis. I know that once you said that making the variable continuous would do the same thing but I wasn't able to use that method to make sure all the years were present in the labels.
+
+```{r time-plot}
+allisons <- names |> 
+  filter(Name == "Allison",
+         Sex == "F") |> 
+  group_by(Year) |> 
+  summarize(counts = sum(Count), .groups = "keep")
+
+allisons |> 
+  ggplot(mapping = aes(x = factor(Year), y = counts)) +
+  geom_point() +
+  ylab("Total Number of Allisons Born") +
+  xlab("Year")
+```
+
+**Modeling the Number of Allisons**
+
+Questions 4&5
+
+```{r model}
+allison_lm <- allisons |> 
+  lm(counts ~ Year, data = _)
+
+allison_lm
+```
+
+Question 6
+
+Regression Equation:
+
+Number of Allisons = -101.5\*Year + 209689.8
+
+Question 7
+
+```{r plot-resids}
+allison_lm |> 
+  broom::augment() |> 
+  ggplot(mapping = aes(y = .resid, x = .fitted)) +
+  geom_point() +
+  geom_line()
+```
+
+The name Allison is still cool and popular, just not as much as it used to be. The residual for 2014 is above 0, indicating that the usage of Allison is still above the mean.
+
+**Spelling by State**
+
+Question 8
+
+Challenge: I rotated the y-axis label so that you don't have to turn your head to read it. I also reordered the legend so that they would go in the order that they appear in the graph, but I couldn't figure out how to reverse the order, as it is flipped right now.
+
+```{r plot-by-name}
+#| warning: false
+#| message: false
+
+names |> 
+  filter(Name == "Allan" | Name == "Allen" |Name == "Alan") |> 
+  mutate(Name = as.factor(Name)) |> 
+  group_by(Year, Name) |> 
+  summarize(counts = sum(Count)) |> 
+  ggplot(mapping = aes(x = Year, y = counts, color = fct_reorder(.f = Name,
+                                           .x = counts,
+                                           .fun = sum))) +
+  geom_line() +
+  geom_point() +
+  labs(color = "Name") +
+  ylab("Frequency of Each Name") +
+  theme(axis.title.y = element_text(angle = 0))
+```
+
+Question 9
+
+Challenge: I used kableExtra to add another row of column headings to this table.
+
+```{r sum-2}
+allens <- names |> 
+  filter(Name == "Allan" | Name == "Allen" |Name == "Alan",
+         Year == 2000,
+         State == "CA" | State == "PA") |> 
+  group_by(State, Name) |> 
+  summarize(counts = sum(Count), .groups = "keep") |> 
+  pivot_wider(names_from = Name, values_from = counts) 
+  
+kable(allens, booktabs = TRUE) |> 
+  add_header_above(c("Location" = 1, "Frequency of Name" = 3))
+```
+
+Question 10
+
+```{r proportions}
+allens |> 
+  pivot_longer(cols = "Alan":"Allen", names_to = "Name", values_to = "Count") |> 
+  pivot_wider(names_from = State, values_from = Count) |> 
+  mutate(CA = CA/sum(CA)) |> 
+  mutate(PA = PA/sum(PA)) |> 
+  pivot_longer(cols = "CA":"PA",names_to = "State", values_to = "Proportion") |> 
+  pivot_wider(names_from = Name, values_from = Proportion) |> 
+  kable(col.names = c("State", "Proportion of Alans", "Proportion of Allans", "Proportion of Allens"))
+```
