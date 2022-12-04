@@ -1,5 +1,8 @@
 ---
 title: "The Power of Efficiency"
+author: "Sara Goel"
 format: html
 editor: visual
 ---
+
+In data science, efficiency is the use of concise and non-repetitive code that uses the tools that can complete the desired task the fastest. Efficiency allows you to create short pieces of code that can complete tasks quickly, without a long list of over-complicated steps. Efficiency is important because each line of code should be doing an important task in getting the problem solved, and if four lines of code can be done in one line, then those four lines are not necessary. There have been a lot of times throughout this quarter where I have spent a lot of time trying to code a solution to a lab assignment, and after writing four different chunks of code, I find a tool or a step that will help me condense everything into one chunk. Ultimately, efficiency shows a deeper understanding of the coding language, as it allows you to use the best tools for each problem you're attempting. A big a-ha moment I had was in Lab 4, Question 7. I had initially spent a long time writing out code that included multiple pivots, mutations and joins, just to realize that if I ordered everything perfectly I could make the whole process 4 lines long.

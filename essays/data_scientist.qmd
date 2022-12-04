@@ -1,5 +1,6 @@
 ---
 title: "My Growth as a Data Scientist"
+author: "Sara Goel"
 format: html
 editor: visual
 ---
@@ -8,4 +9,4 @@ I learned that data visualizations have a lot more to them than just displaying 
 
 Another part of growing as a data scientist was trying to determine to best way to solve each problem I was given, and learning how to format my datasets to be able to solve each problem. Often, as I completed a lab I would have to work out a problem through a very complicated solution, and then as I looked over all my steps I found a way to condense them into a smaller set of steps. I still, however, sometimes struggle with figuring out the most concise solution to my problems. To me, data science is an exercise in problem-solving, and coding is a fun tool to practice that. One of the pieces of feedback I got in Lab 9 for Question 3 was "Clever use of pivots to get the proportions! This process has quite a few steps, so I'd recommend you considering how you might be able to shorten it!" I tried that problem a couple different times but couldn't figure out a way to shorten the number of steps. These are things I'm still learning.
 
-The last way I've grown as a data scientist this quarter has been through learning to make my output more professional.
+The last way I've grown as a data scientist this quarter has been through learning to make my output more professional. Earlier in the class, I would often forget to remove error messages, and I didn't understand that I needed to clearly output what each question was asking, and find the best R tool to give me that output. Throughout the course, I learned how to use different functions such as slice_max() to get single rows of a dataframe to ensure that there was no unnecessary output. This can be seen in Lab 4, Question 4.

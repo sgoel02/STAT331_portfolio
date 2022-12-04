@@ -43,6 +43,10 @@ I am still working on creating professional looking analysis and am continuing t
 
 Another example of a revision I made with a thoughtful reflection is in Lab 2, Question 2. The revision requested as well as my reflection and correction are in the Quarto file for the lab.
 
+Extending my thinking:
+
+One example where I extended my thinking is when I used lubridate functions in Challenge 4, Part 1 to complete the problem, when we had not learned lubridate tools in class yet.
+
 Peer Review / Teamwork:
 
 I have been working very collaboratively with my team all quarter. I often contribute to group discussions about the best way to solve a problem, and together we evaluate which solutions are the most efficient. I give feedback in peer reviews for lab, making sure to include both positive and constructive comments sandwiched together to provide helpful but still overall supportive feedback. This can be seen in the screenshot of my comment for the lab 2 assigned peer review.

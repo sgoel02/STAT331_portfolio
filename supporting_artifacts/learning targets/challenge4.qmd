@@ -12,6 +12,7 @@ Note: One of my lab group members, Jake, and I worked together to find the datas
 
 ```{r load-package}
 #| message: false
+#| include: false
 library(tidyverse)
 library(readxl)
 library(lubridate)
@@ -37,6 +38,8 @@ avocados <- avocados |>
   semi_join(cali, by = "region")
 ```
 
+**Part 1**
+
 ```{r create-houses}
 houses <- houses |> 
   filter(year(`Mon-Yr`) <= 2018,
@@ -47,31 +50,25 @@ houses <- houses |>
          "SanDiego" = `San Diego`) |> 
   pivot_longer(cols = "LosAngeles":"Sacramento",
                names_to = "region",
-               values_to = "house_prices") |> 
-  group_by(region) |> 
-  summarize(house_price = mean(house_prices), .groups = "keep")
+               values_to = "house_prices") 
 ```
 
 ```{r combine-dataset}
 avo_new <- avocados |> 
   select(region, `Total Volume`) |> 
-  group_by(region) |> 
-  summarize(total_sales = mean(`Total Volume`)) |> 
   left_join(houses, by = "region")
-
-avo_new
 ```
 
-```{r region-sales-plot}
-ggplot(data = avo_new, mapping = aes(x = region, y = total_sales)) +
-  geom_col() +
+```{r plots}
+#| layout-nrow: 1
+
+ggplot(data = avo_new, mapping = aes(x = region, y = `Total Volume`)) +
+  geom_boxplot() +
   xlab("Region of CA") +
   ylab("Average Total Avocado Sales")
-```
 
-```{r region-houseprice-plot}
-ggplot(data = avo_new, mapping = aes(x = region, y = house_price)) +
-  geom_col() +
+ggplot(data = avo_new, mapping = aes(x = region, y = house_prices)) +
+  geom_boxplot() +
   xlab("Region") +
   ylab("Average Median House Price")
 ```

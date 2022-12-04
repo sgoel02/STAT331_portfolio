@@ -1,3 +1,10 @@
+---
+title: "Practice Activity 9"
+author: "Sara Goel"
+format: html
+editor: visual
+---
+
 ```{r}
 library(tidyverse)
 ```

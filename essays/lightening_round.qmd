@@ -1,5 +1,6 @@
 ---
 title: "Lightening Round Essays"
+author: "Sara Goel"
 format: html
 editor: visual
 ---
