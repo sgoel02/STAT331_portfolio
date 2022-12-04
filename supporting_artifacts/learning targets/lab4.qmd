@@ -125,7 +125,7 @@ avo_final <- cali_new |>
   distinct(region, .keep_all = TRUE)
 
 avo_final |> 
-  ggplot(mapping = aes(group_by(region),
+  ggplot(mapping = aes(
                        x = region,
                        y = proportion,
                        fill = `Avocado Size`)) + 
